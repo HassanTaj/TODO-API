@@ -18,7 +18,7 @@ namespace ToDo.Api {
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/dark_bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/font-awesome.css"));
         }

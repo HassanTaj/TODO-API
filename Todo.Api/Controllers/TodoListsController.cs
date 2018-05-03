@@ -46,9 +46,13 @@ namespace ToDo.Api.Controllers
         [ResponseType(typeof(TodoList))]
         public IHttpActionResult PutTodoList(int id, TodoList m) {
             TodoList list = db.GetById(id);
+
             if (list == null) {
                 return NotFound();
             }
+            list.Todos = m.Todos;
+            list.ListTitle = m.ListTitle;
+
             db.Update(list,list.Id);
             db.Save();
             return Ok(list);
@@ -60,9 +64,6 @@ namespace ToDo.Api.Controllers
             TodoList list = db.GetById(id);
             if (list == null) {
                 return NotFound();
-            }
-            foreach (var todo in list.Todos) {
-
             }
             db.Delete(list);
             db.Save();

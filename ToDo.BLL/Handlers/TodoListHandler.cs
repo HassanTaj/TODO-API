@@ -16,9 +16,6 @@ namespace ToDo.BLL.Handlers {
         }
 
         public void Delete(TodoList m) {
-            foreach (var item in m.Todos) {
-                ctx.Todo.Remove(item);
-            }
             ctx.TodoList.Remove(m);
         }
 
@@ -27,21 +24,17 @@ namespace ToDo.BLL.Handlers {
         }
 
         public TodoList GetById(int id) {
-            return ctx.TodoList.Include(x => x.Todos)
-                    .Where(x => x.Id == id).FirstOrDefault();
+            return ctx.TodoList
+                .Include(x => x.Todos)
+                .Where(x => x.Id == id).FirstOrDefault();
         }
 
 
         public void Update(TodoList m, int id) {
-            TodoList list = ctx.TodoList.Include(x => x.Todos).Where(x => x.Id == id).FirstOrDefault();
-            foreach (var item in list.Todos) {
-                ctx.Todo.Remove(item);
-            }
-            foreach (var item in m.Todos) {
-                list.Todos.Add(item);
-            }
-            ctx.Entry(list).State = System.Data.Entity.EntityState.Modified;
+
+            ctx.Entry(m).State = System.Data.Entity.EntityState.Modified;
         }
+
         public void Save() {
             ctx.SaveChanges();
         }
